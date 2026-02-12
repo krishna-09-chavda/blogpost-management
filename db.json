@@ -1,1 +1,28 @@
-{}
+{
+  "posts": [
+    {
+      "id": "4d4b",
+      "title": "Title 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "author": "Krishna chavda",
+      "image": "https://c8.alamy.com/comp/2K83ET5/how-to-start-blog-blogging-for-beginners-ways-to-monetize-your-blog-blog-word-on-table-with-laptop-smartphone-open-notebook-dollar-banknotes-and-2K83ET5.jpg",
+      "createdAt": "2026-02-06"
+    },
+    {
+      "id": "4d4b",
+      "title": "Title 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "author": "Krishna chavda",
+      "image": "https://c8.alamy.com/comp/2K83ET5/how-to-start-blog-blogging-for-beginners-ways-to-monetize-your-blog-blog-word-on-table-with-laptop-smartphone-open-notebook-dollar-banknotes-and-2K83ET5.jpg",
+      "createdAt": "2026-02-06"
+    },
+    {
+      "id": "4d4b",
+      "title": "Title 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "author": "Krishna chavda",
+      "image": "https://c8.alamy.com/comp/2K83ET5/how-to-start-blog-blogging-for-beginners-ways-to-monetize-your-blog-blog-word-on-table-with-laptop-smartphone-open-notebook-dollar-banknotes-and-2K83ET5.jpg",
+      "createdAt": "2026-02-06"
+    }
+  ]
+}
