@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+
 import { FaPlus } from "react-icons/fa";
 import { MdDelete, MdEdit } from "react-icons/md";
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -19,6 +22,31 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleEdit = (postId) => {
+    navigate(`/edit-post/${postId}`);
+  };
+
+  const handleReadMore = (id) => {
+    navigate(`/postdetails/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?",
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`http://localhost:3001/posts/${id}`, {
+        method: "DELETE",
+      });
+
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.log("Delete error:", error);
+    }
+  };
 
   return (
     <>
@@ -63,14 +91,23 @@ const Dashboard = () => {
               {posts.map((post) => (
                 <div className="post-card" key={post.id}>
                   <div className="post-image-container">
-                    <img src={post.image}alt="post" className="post-card-image" />
+                    <img
+                      src={post.imageurl}
+                      alt="post"
+                      className="post-card-image"
+                    />
                     <div className="post-actions">
-                      <button className="action-btn edit-btn" title="Edit Post">
+                      <button
+                        className="action-btn edit-btn"
+                        title="Edit Post"
+                        onClick={() => handleEdit(post.id)}
+                      >
                         <MdEdit size={22} color="#ffffff" />
                       </button>
                       <button
                         className="action-btn delete-btn"
                         title="Delete Post"
+                        onClick={() => handleDelete(post.id)}
                       >
                         <MdDelete size={22} color="#ffffff" />
                       </button>
@@ -79,12 +116,17 @@ const Dashboard = () => {
 
                   <div className="post-card-content">
                     <div className="post-meta">
-                      <span className="post-author">{post.author}</span>
+                      <span className="post-author">{post.auther}</span>
                       <span className="post-date">{post.createdAt}</span>
                     </div>
                     <h3 className="post-card-title">{post.title}</h3>
                     <p className="post-card-description">{post.description}</p>
-                    <button className="read-more-btn">Read More</button>
+                    <button
+                      className="read-more-btn"
+                      onClick={() => handleReadMore(post.id)}
+                    >
+                      Read More
+                    </button>
                   </div>
                 </div>
               ))}
