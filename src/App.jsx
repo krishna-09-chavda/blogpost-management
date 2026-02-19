@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import CreatePost from "./pages/CreatePost";
 import PostDetails from "./pages/PostDetails";
 import Analytics from "./pages/Analytics";
+import Favorites from "./pages/Favorites";
 
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
@@ -85,7 +86,15 @@ function App() {
           <Analytics />
         </AuthGuard>
       ),
-    }
+    },
+    {
+      path:"/favorites",
+      element:(
+        <AuthGuard>
+          <Favorites/>
+          </AuthGuard>
+      ),
+    },
   ]);
 
   return (
