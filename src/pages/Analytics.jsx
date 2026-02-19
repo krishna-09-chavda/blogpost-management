@@ -14,8 +14,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 const Analytics = () => {
+  const navigate = useNavigate()
   const [postData, setPostData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,6 +68,27 @@ const Analytics = () => {
     posts: autherCount[auther],
   }));
 
+   const handleEdit = (postId) => {
+    navigate(`/edit-post/${postId}`);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?",
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`http://localhost:3001/posts/${id}`, {
+        method: "DELETE",
+      });
+
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.log("Delete error:", error);
+    }
+  };
+
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   return (
     <>
@@ -99,7 +122,7 @@ const Analytics = () => {
             </div>
 
             <div className="chart-card">
-              <h3>Disttibution</h3>
+              <h3>Distribution</h3>
               <div className="chart-wrapper">
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
@@ -142,7 +165,7 @@ const Analytics = () => {
 
                 <tbody>
                   {currentPosts.map((post) => (
-                    <tr>
+                    <tr key={post.id}>
                       <td>{post.id}</td>
                       <td>{post.title}</td>
                       <td>{post.auther}</td>
@@ -157,8 +180,8 @@ const Analytics = () => {
                         </button>
                         <button
                           className="delete-btn"
-                          onClick={() => handleDelet(post.id)}
-                          title="delet"
+                          onClick={() => handleDelete(post.id)}
+                          title="delete"
                         >
                           🗑️
                         </button>

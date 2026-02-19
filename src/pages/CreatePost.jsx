@@ -140,6 +140,19 @@ function CreatePost() {
     setError(newError);
     return Object.keys(newError).length === 0;
   };
+
+  const handleClear = () => {
+    setData({
+      title: "",
+      description: "",
+      auther: autherName?.name || "",
+      imageurl: "",
+      imageType: "url",
+    });
+
+    setImagePreview(null);
+    setError({});
+  };
   return (
     <div className="create-post-page">
       <Navbar />
@@ -279,7 +292,11 @@ function CreatePost() {
                 {id ? "Update Post" : "Publish Post"}
               </button>
 
-              <button type="button" className="cancel-btn">
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={handleClear}
+              >
                 Clear Form
               </button>
             </div>
