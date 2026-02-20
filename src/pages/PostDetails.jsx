@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import Navbar from "../Components/Navbar";
 import "./PostDetails.css";
 import { FaArrowLeft, FaCalendarAlt, FaClock } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const PostDetails = () => {
+  const location = useLocation();
+  const from = location.state?.from;
   const [showPostDetails, setShowPostDetails] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -24,7 +24,7 @@ const PostDetails = () => {
   }, [id]);
 
   const handleBack = () => {
-    navigate("/dashboard");
+   navigate(from || "/dashboard");
   };
   return (
     <>
@@ -34,7 +34,7 @@ const PostDetails = () => {
         <main className="post-details-container">
           <button className="back-btn" onClick={handleBack}>
             <FaArrowLeft />
-            Back to Feed
+            {from === "/favorites" ? "Back to favorites":"Back to feed"}
           </button>
           <article className="full-post">
             <header className="post-header">
